@@ -12,11 +12,10 @@ test.beforeEach(async ({ page }) => {
   await page.goto('https://automationexercise.com/');
 })
 
-test('01. GET All Products List', async ({ page, request }) => {
+test('01. GET All Brands List', async ({ page, request }) => {
+  const productsListResponse = await request.get('https://automationexercise.com/api/brandsList')
 
-  const productsListResponse = await request.get('https://automationexercise.com/api/productsList')
-
-  await page.route("https://automationexercise.com/api/productsList", async route => {
+  await page.route('https://automationexercise.com/api/brandsList', async route => {
     const response = await route.fetch()
     const responseBody = await response.json()
 
@@ -26,11 +25,10 @@ test('01. GET All Products List', async ({ page, request }) => {
     expect(response.status()).toEqual(200)
     expect(productsListResponse.status()).toEqual(200)
   })
-
 })
 
-test('02. POST to All Products List', async ({ page, request }) => {
-  const response = await request.post('https://automationexercise.com/api/productsList', {
+test('02. PUT to All Brands List', async ({ page, request }) => {
+  const response = await request.put('https://automationexercise.com/api/brandsList', {
     data: {}
   })
   const responseBody = await response.json()
