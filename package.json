@@ -18,5 +18,9 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0"
+  },
+  "dependencies": {
+    "@cliqz/adblocker-playwright": "^1.34.0",
+    "cross-fetch": "^4.1.0"
   }
 }
