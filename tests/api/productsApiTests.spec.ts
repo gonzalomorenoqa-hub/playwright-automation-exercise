@@ -1,5 +1,4 @@
 import { test, expect, request } from '@playwright/test';
-//import tags from '../test-data/tags.json'
 
 test.beforeEach(async ({ page }) => {
 
@@ -12,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('https://automationexercise.com/');
 })
 
-test('GET All Products List', async ({ page, request }) => {
+test('01. GET All Products List', async ({ page, request }) => {
 
   const productsListResponse = await request.get('https://automationexercise.com/api/productsList')
 
@@ -29,8 +28,21 @@ test('GET All Products List', async ({ page, request }) => {
 
 })
 
-test('POST to All Products List', async ({ page, request }) => {
-   const response = await request.post('https://automationexercise.com/api/productsList', {
+test('02. POST to All Products List', async ({ page, request }) => {
+  const response = await request.post('https://automationexercise.com/api/productsList', {
+    data: {}
+  })
+  const responseBody = await response.json()
+  expect(responseBody.responseCode).toEqual(405)
+  expect(responseBody.message).toEqual("This request method is not supported.")
+})
+
+test('03. GET All Brands List', async ({ page, request }) => {
+
+})
+
+test('04. PUT to All Brands List', async ({ page, request }) => {
+  const response = await request.put('https://automationexercise.com/api/brandsList', {
     data: {}
   })
   const responseBody = await response.json()
