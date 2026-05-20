@@ -95,3 +95,27 @@ test('02: Login User with correct email and password', async ({ page }) => {
     await pm.onHomePage().clickDeleteAccountButton()
     expect(await page.locator(':text-is("Account Deleted!")').isVisible());
 });
+
+/**
+ * Test Case 3: Login User with incorrect email and password
+*   1. Launch browser
+*   2. Navigate to url 'http://automationexercise.com'
+*   3. Verify that home page is visible successfully
+*   4. Click on 'Signup / Login' button
+*   5. Verify 'Login to your account' is visible
+*   6. Enter incorrect email address and password
+*   7. Click 'login' button
+*   8. Verify error 'Your email or password is incorrect!' is visible
+ */
+test('03. Login User with incorrect email and password', async ({ page }) => {
+    const pm = new PageManager(page)
+    const randomName = faker.person.firstName()
+    const randomEmail = `${randomName.replace(' ', '')}${faker.number.int(1000)}@test.com`
+    const randomPassword = 'Password123!'
+
+    expect(await page.locator('//img[@alt="Website for automation practice"]').isVisible());
+    await pm.navigateTo().signUpLoginPage()
+    expect(await page.locator(':text-is("Login to your account")').isVisible());
+    await pm.onSignUpLoginPage().loginToYourAccount(randomEmail, randomPassword)
+    expect(await page.locator(':text-is("Your email or password is incorrect!")').isVisible());
+});
