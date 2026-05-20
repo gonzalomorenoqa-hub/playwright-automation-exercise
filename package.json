@@ -2,13 +2,13 @@
   "name": "playwright-automationexercise",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/gonzalomorenoqa-hub/playwright-automationexercise#readme",
+  "homepage": "https://github.com/gonzalomorenoqa-hub/playwright-automation-exercise#readme",
   "bugs": {
-    "url": "https://github.com/gonzalomorenoqa-hub/playwright-automationexercise/issues"
+    "url": "https://github.com/gonzalomorenoqa-hub/playwright-automation-exercise/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gonzalomorenoqa-hub/playwright-automationexercise.git"
+    "url": "git+https://github.com/gonzalomorenoqa-hub/playwright-automation-exercise.git"
   },
   "license": "ISC",
   "author": "QAgmoreno",
