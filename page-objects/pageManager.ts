@@ -40,5 +40,4 @@ export class PageManager {
         return this.signUpLoginPage
     }
 
-
 }

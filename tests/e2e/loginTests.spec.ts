@@ -42,23 +42,56 @@ test('01. Register User', async ({ page }) => {
     const pm = new PageManager(page)
     const randomName = faker.person.firstName()
     const randomEmail = `${randomName.replace(' ', '')}${faker.number.int(1000)}@test.com`
+    const randomPassword = 'Password123!'
 
     expect(await page.locator('//img[@alt="Website for automation practice"]').isVisible());
     await pm.navigateTo().signUpLoginPage()
-    //await pm.onSignUpLoginPage().loginToYourAccount()
     expect(await page.locator(':text-is("New User Sign")').isVisible());
     await pm.onSignUpLoginPage().signUp(randomName, randomEmail)
     expect(await page.locator(':text-is("Enter Account Information")').isVisible());
-    await pm.onSignUpLoginPage().fillEnterAccountInformationPage(1,
-        'Password123!', 1, 1, 1990, true, true, randomName, randomName,
-        'Company',
-        'Address', 'India', 'State', 'City', 12345, 1234567890)
+    await pm.onSignUpLoginPage().createRandomAccount(randomName, randomPassword)
     expect(await page.locator(':text-is("Account Created!")').isVisible());
     await pm.onSignUpLoginPage().clickContinueButton()
     expect(await page.locator(`:text-is("Logged in as ${randomName}")`).isVisible());
     await pm.onHomePage().clickDeleteAccountButton()
     expect(await page.locator(':text-is("Account Deleted!")').isVisible());
     await pm.onSignUpLoginPage().clickContinueButton()
+});
 
+/**
+ * Test Case 2: Login User with correct email and password
+ * 1. Launch browser
+ * 2. Navigate to url 'http://automationexercise.com'
+ * 3. Verify that home page is visible successfully
+ * 4. Click on 'Signup / Login' button
+ * 5. Verify 'Login to your account' is visible
+ * 6. Enter correct email address and password
+ * 7. Click 'login' button
+ * 8. Verify that 'Logged in as username' is visible
+ * 9. Click 'Delete Account' button
+ * 10. Verify that 'ACCOUNT DELETED!' is visible
+ */
+test('02: Login User with correct email and password', async ({ page }) => {
+    const pm = new PageManager(page)
+    const randomName = faker.person.firstName()
+    const randomEmail = `${randomName.replace(' ', '')}${faker.number.int(1000)}@test.com`
+    const randomPassword = 'Password123!'
 
+    expect(await page.locator('//img[@alt="Website for automation practice"]').isVisible());
+    await pm.navigateTo().signUpLoginPage()
+    expect(await page.locator(':text-is("New User Sign")').isVisible());
+    await pm.onSignUpLoginPage().signUp(randomName, randomEmail)
+    expect(await page.locator(':text-is("Enter Account Information")').isVisible());
+    await pm.onSignUpLoginPage().createRandomAccount(randomName, randomPassword)
+    expect(await page.locator(':text-is("Account Created!")').isVisible());
+    await pm.onSignUpLoginPage().clickContinueButton()
+    expect(await page.locator(`:text-is("Logged in as ${randomName}")`).isVisible());
+    await pm.onHomePage().clickLogOutAccountButton()
+    await pm.navigateTo().signUpLoginPage()
+
+    expect(await page.locator(':text-is("Login to your account")').isVisible());
+    await pm.onSignUpLoginPage().loginToYourAccount(randomEmail, randomPassword)
+    expect(await page.locator(`:text-is("Logged in as ${randomName}")`).isVisible());
+    await pm.onHomePage().clickDeleteAccountButton()
+    expect(await page.locator(':text-is("Account Deleted!")').isVisible());
 });
