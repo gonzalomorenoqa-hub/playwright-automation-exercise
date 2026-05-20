@@ -10,9 +10,9 @@ export class SignUpLoginPage {
 
 
 
-    async loginToYourAccount() {
-        await this.page.locator('[data-qa="login-email"]').fill('Gonzalo')
-        await this.page.locator('[data-qa="login-password"]').fill('Anashe')
+    async loginToYourAccount(email: string, password: string) {
+        await this.page.locator('[data-qa="login-email"]').fill(email)
+        await this.page.locator('[data-qa="login-password"]').fill(password)
         await this.page.locator('[data-qa="login-button"]').click()
     }
 
@@ -41,8 +41,9 @@ export class SignUpLoginPage {
      * @param zipcode - the zip code
      * @param mobileNumber - the mobile number
      */
-    async fillEnterAccountInformationPage(male: number, password: string, dayOfBirth: number, monthOfBirth: number, yearOfBirth: number, newsletter: boolean, specialOffers: boolean, firstName: string, lastName: string, company: string, address: string, country: string, state: string, city: string, zipcode: number, mobileNumber: number){
+    async fillEnterAccountInformationPage(male: number, name:string, password: string, dayOfBirth: number, monthOfBirth: number, yearOfBirth: number, newsletter: boolean, specialOffers: boolean, firstName: string, lastName: string, company: string, address: string, country: string, state: string, city: string, zipcode: number, mobileNumber: number){
         await this.page.locator(`#id_gender${male}`).check()
+        await this.page.locator('#name').fill(name)
         await this.page.locator('#password').fill(password)
         await this.page.locator('#days').selectOption(dayOfBirth.toString())
         await this.page.locator('#months').selectOption(monthOfBirth.toString())
@@ -67,5 +68,9 @@ export class SignUpLoginPage {
 
     async clickContinueButton(){
         await this.page.locator('[data-qa="continue-button"]').click()
+    }
+
+    async createRandomAccount(randomName: string, randomPassword: string){
+        await this.fillEnterAccountInformationPage(1, randomName, randomPassword, 1, 1, 1990, true, true, randomName, randomName, 'Company', 'Address', 'India', 'State', 'City', 12345, 1234567890)
     }
 }
