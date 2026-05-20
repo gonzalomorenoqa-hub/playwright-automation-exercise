@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
   //})
 
   await page.goto('https://automationexercise.com/');
-})
+});
 
 test('01. GET All Products List', async ({ page, request }) => {
 
@@ -27,7 +27,7 @@ test('01. GET All Products List', async ({ page, request }) => {
     expect(productsListResponse.status()).toEqual(200)
   })
 
-})
+});
 
 test('02. POST to All Products List', async ({ page, request }) => {
   const response = await request.post('https://automationexercise.com/api/productsList', {
@@ -36,4 +36,4 @@ test('02. POST to All Products List', async ({ page, request }) => {
   const responseBody = await response.json()
   expect(responseBody.responseCode).toEqual(405)
   expect(responseBody.message).toEqual("This request method is not supported.")
-})
+});
