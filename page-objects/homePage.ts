@@ -15,4 +15,8 @@ export class HomePage {
     async signUpLoginPage() {
         await this.page.locator('[href="/login"]').click()
     }
+
+    async clickDeleteAccountButton() {
+        await this.page.locator('[href="/delete_account"]').click()
+    }
 }
